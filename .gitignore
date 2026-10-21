@@ -1,0 +1,9 @@
+node_modules
+dist
+tmp
+coverage
+.DS_Store
+
+# Файл уже в репозитории (его создаёт Хекслет и правки в нём запрещены).
+# Строка здесь только для oxfmt: он читает .gitignore и не трогает этот файл.
+.github/workflows/hexlet-check.yml

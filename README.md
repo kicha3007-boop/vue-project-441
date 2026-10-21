@@ -1,6 +1,7 @@
 # Конструктор лендингов (Vue)
 
 [![hexlet-check](https://github.com/kicha3007-boop/vue-project-441/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kicha3007-boop/vue-project-441/actions)
+[![CI](https://github.com/kicha3007-boop/vue-project-441/actions/workflows/ci.yml/badge.svg)](https://github.com/kicha3007-boop/vue-project-441/actions/workflows/ci.yml)
 
 Соберите конструктор посадочных страниц на Vue 3, в котором страница
 складывается из блоков, блоки меняются местами и настраиваются, оформление
@@ -14,20 +15,47 @@
 
 ## Стек
 
-- JavaScript
+- Vue 3 (`<script setup>`), Pinia, Vue Router
+- Vite, Tailwind CSS 4
+- Vitest + @vue/test-utils, oxlint + oxfmt
+
+Выложенное приложение: пока не выложено (Render, статический сайт: команда сборки
+`make build`, каталог публикации `dist/`, правило перенаправления `/*` → `/index.html`).
 
 ## Установка
 
-<!-- Опишите установку: клонирование, зависимости, переменные окружения -->
+Нужен Node.js 24 или новее.
 
 ```bash
 git clone https://github.com/kicha3007-boop/vue-project-441.git
 cd vue-project-441
+make setup   # зависимости и сборка в dist/
+make serve   # собранное приложение на http://localhost:8080
 ```
 
 ## Использование
 
-<!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
+```bash
+make start   # сервер разработки на http://localhost:8080
+make test    # тесты хранилища, выгрузки и компонента страницы
+make lint    # oxlint и проверка форматирования oxfmt
+```
+
+Экраны: `/` — главная, `/editor` — редактор (кнопки блоков, список, настройки, страница),
+`/theme` — палитра, шрифт и ширина колонки, `/preview` — предпросмотр и выгрузка в HTML.
+Страница сохраняется в `localStorage` и переживает перезагрузку.
+
+## Устройство
+
+- `src/lib/blockTypes.js` — справочник типов блоков: название и поля со значениями по умолчанию.
+- `src/lib/blockComponents.js` — карта «тип — компонент», компоненты в `src/components/blocks/`.
+- `src/lib/exportHtml.js` — чистая функция выгрузки, от Vue не зависит.
+- `src/lib/theme.js` — палитры, шрифты, ширины и ключ `provide`/`inject`.
+- `src/stores/page.js` — хранилище Pinia: блоки, выбранный блок, тема, сохранение одним `watch`.
+- `src/texts.js` — тексты интерфейса.
+
+Новый тип блока (здесь это `faq`, вопрос и ответ) добавляется в четырёх местах: справочник,
+компонент блока, карта и разметка в выгрузке.
 
 ---
 
